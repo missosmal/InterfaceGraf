@@ -10,11 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public List<Note> listOfNotes = new ArrayList<>();
+    public List<Note> listNotes = new ArrayList<>();
 
     public void OpenNote(View view) {
         setContentView(R.layout.note);
     }
-    int index = -1;
+    int i = -1;
 
     public void AddNote(View view){
         Note newNote = new Note();
@@ -44,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
         Date dateNow = new Date();
         SimpleDateFormat formatForDateNow = new SimpleDateFormat("yyyy.MM.dd");
         newNote.date = formatForDateNow.format(dateNow);
-        if(index == -1)
-            listOfNotes.add(newNote);
+        if(i == -1)
+            listNotes.add(newNote);
         else{
-            listOfNotes.set(index, newNote);
-            index = -1;
+            listNotes.set(i, newNote);
+            i = -1;
         }
         setContentView(R.layout.activity_main);
         onLoad();
@@ -58,21 +54,21 @@ public class MainActivity extends AppCompatActivity {
     {
         int id = (int) view.getTag();
         setContentView(R.layout.note);
-        index = id;
+        i = id;
         EditText name = findViewById(R.id.editTextTextPersonName);
-        name.setText(listOfNotes.get(id).name);
+        name.setText(listNotes.get(id).name);
 
         MultiAutoCompleteTextView text = findViewById(R.id.multiAutoCompleteTextView);
-        text.setText(listOfNotes.get(id).text);
+        text.setText(listNotes.get(id).text);
     }
 
     public void onLoad()
     {
         LinearLayout parrent = findViewById(R.id.parrent);
         parrent.removeAllViews();
-        System.out.print(listOfNotes.size());
+        System.out.print(listNotes.size());
 
-        for(int i = 0; i < listOfNotes.size(); i++) {
+        for(int i = 0; i < listNotes.size(); i++) {
 
             final int finalI = i;
             LinearLayout ll = new LinearLayout(this);
@@ -97,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             ll_ver.setLayoutParams(params);
 
             TextView tv_name = new TextView(this);
-            tv_name.setText(listOfNotes.get(i).name);
+            tv_name.setText(listNotes.get(i).name);
             LinearLayout.LayoutParams params_tv = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
@@ -108,19 +104,19 @@ public class MainActivity extends AppCompatActivity {
             tv_name.setTextSize(18);
 
             TextView tv_data = new TextView(this);
-            tv_data.setText(listOfNotes.get(i).date);
+            tv_data.setText(listNotes.get(i).date);
             tv_data.setLayoutParams(params_tv);
             tv_data.setTextColor(Color.GRAY);
 
             Button btn_delete = new Button(this);
-            btn_delete.setText("Delete");
+            btn_delete.setText("Удалить");
             LinearLayout.LayoutParams btn_params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
             btn_delete.setLayoutParams(btn_params);
             btn_delete.setOnClickListener(v -> {
-                listOfNotes.remove(listOfNotes.get(finalI));
+                listNotes.remove(listNotes.get(finalI));
                 onLoad();
             });
 
