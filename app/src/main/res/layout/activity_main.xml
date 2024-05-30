@@ -62,8 +62,8 @@
         android:text="Создать"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="669dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="669dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
